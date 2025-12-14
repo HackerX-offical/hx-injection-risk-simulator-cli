@@ -1,10 +1,10 @@
-# HX Injection Risk Simulator CLI (Enterprise Edition)
+# HX Injection Risk Simulator CLI
 
 > The advanced educational tool for simulating and analyzing injection risks in a secure, sandboxed environment.
 
 **Author**: SURYANSHU NABHEET  
 **Organization**: HackerX  
-**Version**: 2.0.0 (Enterprise)
+**Version**: 1.0.0
 
 ## 🚀 Key Features
 

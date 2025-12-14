@@ -45,16 +45,30 @@ export class CLI {
     console.log(chalk.gray("Advanced Educational Security Tool | v2.0.0\n"));
 
     while (true) {
+      console.log(
+        chalk.yellow("  (Use arrow keys to navigate, ENTER to select)")
+      );
+
       const { action } = await inquirer.prompt([
         {
           type: "list",
           name: "action",
           message: "Select Operation Mode:",
           choices: [
-            { name: "🔍 Interactive Simulation", value: "simulate" },
-            { name: "📚 Educational Scenarios", value: "scenarios" },
-            { name: "💣 Auto-Fuzzing (Advanced)", value: "fuzz" },
-            { name: "🚪 Exit", value: "exit" },
+            {
+              name: "🔍 Interactive Simulation   (Test specific payloads)",
+              value: "simulate",
+            },
+            {
+              name: "📚 Educational Scenarios    (Learn from examples)",
+              value: "scenarios",
+            },
+            {
+              name: "💣 Auto-Fuzzing Engine      (Automated risk check)",
+              value: "fuzz",
+            },
+            new inquirer.Separator(),
+            { name: "🚪 Exit Application", value: "exit" },
           ],
         },
       ]);
