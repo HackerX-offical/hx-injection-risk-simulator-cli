@@ -1,14 +1,14 @@
-import { ISimulator, SimulationResult, RiskLevel } from "../core/types";
+import { ISimulator, SimulationResult, RiskLevel } from '../core/types';
 
 export class PayloadFuzzer {
   private payloads: string[] = [
     "' OR '1'='1",
     "admin' --",
-    "; cat /etc/passwd",
-    "| whoami",
-    "{{7*7}}",
-    "<script>alert(1)</script>", // XSS, for completeness/future
-    "${jndi:ldap://...}",
+    '; cat /etc/passwd',
+    '| whoami',
+    '{{7*7}}',
+    '<script>alert(1)</script>', // XSS, for completeness/future
+    '${jndi:ldap://...}',
   ];
 
   constructor(customPayloads: string[] = [], enableDefault: boolean = true) {

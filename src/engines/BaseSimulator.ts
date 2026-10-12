@@ -1,9 +1,4 @@
-import {
-  ISimulator,
-  InjectionType,
-  SimulationResult,
-  RiskLevel,
-} from "../core/types";
+import { ISimulator, InjectionType, SimulationResult, RiskLevel } from '../core/types';
 
 export abstract class BaseSimulator implements ISimulator {
   abstract type: InjectionType;
@@ -21,8 +16,8 @@ export abstract class BaseSimulator implements ISimulator {
     const header = `[Analysis Result]: ${result.riskLevel} Risk`;
     const details = `
       Input: "${result.input}"
-      Detected Pattern: ${result.detectedPattern || "None"}
-      Potential Impact: ${result.exploitationPotential || "None"}
+      Detected Pattern: ${result.detectedPattern || 'None'}
+      Potential Impact: ${result.exploitationPotential || 'None'}
     `;
     const guidance = `
       Prevention: ${result.preventionMeasure}
@@ -33,16 +28,13 @@ export abstract class BaseSimulator implements ISimulator {
     return `${header}\n${details}\n${guidance}`;
   }
 
-  protected createSafeResult(
-    input: string,
-    explanation: string
-  ): SimulationResult {
+  protected createSafeResult(input: string, explanation: string): SimulationResult {
     return {
       type: this.type,
       riskLevel: RiskLevel.SAFE,
       input,
       preventionMeasure:
-        "Keep using secure coding practices (parameterization, input validation, output encoding).",
+        'Keep using secure coding practices (parameterization, input validation, output encoding).',
       explanation,
     };
   }

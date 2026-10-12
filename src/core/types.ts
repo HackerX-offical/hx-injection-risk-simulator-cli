@@ -1,13 +1,13 @@
 export enum InjectionType {
-  SQL = "SQL",
-  COMMAND = "COMMAND",
-  TEMPLATE = "TEMPLATE",
+  SQL = 'SQL',
+  COMMAND = 'COMMAND',
+  TEMPLATE = 'TEMPLATE',
 }
 
 export enum RiskLevel {
-  SAFE = "SAFE",
-  LOW = "LOW", // Might be risky in some contexts or bad practice, but not directly exploitable
-  HIGH = "HIGH", // Directly exploitable or clearly dangerous pattern
+  SAFE = 'SAFE',
+  LOW = 'LOW', // Might be risky in some contexts or bad practice, but not directly exploitable
+  HIGH = 'HIGH', // Directly exploitable or clearly dangerous pattern
 }
 
 export interface SimulationResult {

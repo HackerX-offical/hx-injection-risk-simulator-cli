@@ -1,6 +1,6 @@
-import { BaseSimulator } from "./BaseSimulator";
-import { InjectionType, RiskLevel, SimulationResult } from "../core/types";
-import { MockFileSystem } from "../sandbox/MockFileSystem";
+import { BaseSimulator } from './BaseSimulator';
+import { InjectionType, RiskLevel, SimulationResult } from '../core/types';
+import { MockFileSystem } from '../sandbox/MockFileSystem';
 
 export class CommandInjectionSimulator extends BaseSimulator {
   type = InjectionType.COMMAND;
@@ -16,9 +16,9 @@ export class CommandInjectionSimulator extends BaseSimulator {
 
     // Regex for shell risk (simplified tokenization)
     const riskPatterns = [
-      { regex: /;|\||&&/g, name: "Command Chaining Operator" },
-      { regex: /\$\(|`/g, name: "Command Substitution" },
-      { regex: />/g, name: "Redirection" },
+      { regex: /;|\||&&/g, name: 'Command Chaining Operator' },
+      { regex: /\$\(|`/g, name: 'Command Substitution' },
+      { regex: />/g, name: 'Redirection' },
     ];
 
     let detectedRisk = null;
@@ -30,7 +30,7 @@ export class CommandInjectionSimulator extends BaseSimulator {
     }
 
     // Dynamic Analysis: Run in Sandbox
-    const baseCommand = "ping -c 4 ";
+    const baseCommand = 'ping -c 4 ';
     const fullCommand = baseCommand + input;
 
     // Simulate execution
@@ -40,29 +40,25 @@ export class CommandInjectionSimulator extends BaseSimulator {
     // Detection Logic
     // If we accessed sensitive files (like /etc/passwd) OR if the output implies code execution beyond "ping"
     const sensitiveAccess = accessedFiles.some(
-      (f) => f.includes("/etc/passwd") || f.includes("/root")
+      (f) => f.includes('/etc/passwd') || f.includes('/root'),
     );
-    const unexpectedOutput =
-      output.includes("root:x:") || output.includes("Simulating deletion");
+    const unexpectedOutput = output.includes('root:x:') || output.includes('Simulating deletion');
 
     if (detectedRisk || sensitiveAccess || unexpectedOutput) {
       return {
         type: this.type,
         riskLevel: RiskLevel.HIGH,
         input,
-        detectedPattern: detectedRisk || "Unsafe Execution Behavior",
-        exploitationPotential:
-          "Remote Code Execution (RCE), System Compromise.",
+        detectedPattern: detectedRisk || 'Unsafe Execution Behavior',
+        exploitationPotential: 'Remote Code Execution (RCE), System Compromise.',
         preventionMeasure:
-          "Avoid `exec()` with user input. Use `execFile()` with arguments array, or input validation.",
+          'Avoid `exec()` with user input. Use `execFile()` with arguments array, or input validation.',
         explanation: `
             Analysis detected dangerous behavior.
             
             SANDBOX TRACE:
             Command: "${fullCommand}"
-            Files Accessed: ${
-              accessedFiles.length > 0 ? accessedFiles.join(", ") : "None"
-            }
+            Files Accessed: ${accessedFiles.length > 0 ? accessedFiles.join(', ') : 'None'}
             Output Snippet: "${output.substring(0, 50)}..."
             
             The simulator observed that the input caused unexpected system interaction.
@@ -72,7 +68,7 @@ export class CommandInjectionSimulator extends BaseSimulator {
 
     return this.createSafeResult(
       input,
-      "The input appeared to execute responsibly within the sandbox logic."
+      'The input appeared to execute responsibly within the sandbox logic.',
     );
   }
 }

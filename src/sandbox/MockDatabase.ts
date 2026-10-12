@@ -1,4 +1,4 @@
-import { IMockDatabaseState, IMockUser } from "../core/context";
+import { IMockDatabaseState, IMockUser } from '../core/context';
 
 export class MockDatabase {
   private state: IMockDatabaseState;
@@ -6,10 +6,10 @@ export class MockDatabase {
   constructor() {
     this.state = {
       users: [
-        { id: 1, username: "admin", role: "admin" },
-        { id: 2, username: "alice", role: "user" },
-        { id: 3, username: "bob", role: "user" },
-        { id: 4, username: "guest", role: "guest" },
+        { id: 1, username: 'admin', role: 'admin' },
+        { id: 2, username: 'alice', role: 'user' },
+        { id: 3, username: 'bob', role: 'user' },
+        { id: 4, username: 'guest', role: 'guest' },
       ],
       queryLog: [],
     };

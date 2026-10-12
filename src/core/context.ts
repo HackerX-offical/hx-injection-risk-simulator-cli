@@ -5,7 +5,7 @@ export interface ISandbox {
 export interface IMockUser {
   id: number;
   username: string;
-  role: "admin" | "user" | "guest";
+  role: 'admin' | 'user' | 'guest';
 }
 
 export interface IMockDatabaseState {

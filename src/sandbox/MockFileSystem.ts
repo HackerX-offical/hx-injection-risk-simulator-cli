@@ -1,4 +1,4 @@
-import { IMockFileSystemState } from "../core/context";
+import { IMockFileSystemState } from '../core/context';
 
 export class MockFileSystem {
   private state: IMockFileSystemState;
@@ -7,11 +7,11 @@ export class MockFileSystem {
     this.state = {
       files: new Map([
         [
-          "/etc/passwd",
-          "root:x:0:0:root:/root:/bin/bash\nuser:x:1000:1000:user:/home/user:/bin/bash",
+          '/etc/passwd',
+          'root:x:0:0:root:/root:/bin/bash\nuser:x:1000:1000:user:/home/user:/bin/bash',
         ],
-        ["/var/www/html/index.html", "<html><h1>Hello World</h1></html>"],
-        ["/secret/keys.pem", "BEGIN RSA PRIVATE KEY..."],
+        ['/var/www/html/index.html', '<html><h1>Hello World</h1></html>'],
+        ['/secret/keys.pem', 'BEGIN RSA PRIVATE KEY...'],
       ]),
       accessLog: [],
     };
@@ -35,19 +35,19 @@ export class MockFileSystem {
 
   public simulateCommandExecution(commandLine: string): string {
     // 1. Detect 'cat /etc/passwd'
-    if (commandLine.includes("cat /etc/passwd")) {
-      this.readx("/etc/passwd");
-      return this.state.files.get("/etc/passwd")!;
+    if (commandLine.includes('cat /etc/passwd')) {
+      this.readx('/etc/passwd');
+      return this.state.files.get('/etc/passwd')!;
     }
 
     // 2. Detect 'whoami'
-    if (commandLine.includes("whoami")) {
-      return "root"; // Simulate worst-case scenario
+    if (commandLine.includes('whoami')) {
+      return 'root'; // Simulate worst-case scenario
     }
 
     // 3. Detect 'rm -rf' (Simulated)
-    if (commandLine.includes("rm -rf")) {
-      return "Simulating deletion of all files... (Destructive)";
+    if (commandLine.includes('rm -rf')) {
+      return 'Simulating deletion of all files... (Destructive)';
     }
 
     return `Executed: ${commandLine}`;

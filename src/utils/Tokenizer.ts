@@ -1,9 +1,9 @@
 export enum TokenType {
-  KEYWORD = "KEYWORD",
-  STRING = "STRING",
-  OPERATOR = "OPERATOR",
-  IDENTIFIER = "IDENTIFIER",
-  UNKNOWN = "UNKNOWN",
+  KEYWORD = 'KEYWORD',
+  STRING = 'STRING',
+  OPERATOR = 'OPERATOR',
+  IDENTIFIER = 'IDENTIFIER',
+  UNKNOWN = 'UNKNOWN',
 }
 
 export interface Token {
@@ -15,19 +15,19 @@ export class Tokenizer {
   static tokenizeSQL(input: string): Token[] {
     const tokens: Token[] = [];
     const keywords = [
-      "SELECT",
-      "FROM",
-      "WHERE",
-      "AND",
-      "OR",
-      "UNION",
-      "DROP",
-      "INSERT",
-      "UPDATE",
-      "DELETE",
-      "TABLE",
+      'SELECT',
+      'FROM',
+      'WHERE',
+      'AND',
+      'OR',
+      'UNION',
+      'DROP',
+      'INSERT',
+      'UPDATE',
+      'DELETE',
+      'TABLE',
     ];
-    const operators = ["=", "!=", "<", ">", "<=", ">=", ";", "--"];
+    const operators = ['=', '!=', '<', '>', '<=', '>=', ';', '--'];
 
     // Split by whitespace but keep delimiters roughly involved
     // This is a naive tokenizer for educational visualization

@@ -1,7 +1,7 @@
-import { BaseSimulator } from "./BaseSimulator";
-import { InjectionType, RiskLevel, SimulationResult } from "../core/types";
-import { MockDatabase } from "../sandbox/MockDatabase";
-import { Tokenizer } from "../utils/Tokenizer";
+import { BaseSimulator } from './BaseSimulator';
+import { InjectionType, RiskLevel, SimulationResult } from '../core/types';
+import { MockDatabase } from '../sandbox/MockDatabase';
+import { Tokenizer } from '../utils/Tokenizer';
 
 export class SQLInjectionSimulator extends BaseSimulator {
   type = InjectionType.SQL;
@@ -17,9 +17,7 @@ export class SQLInjectionSimulator extends BaseSimulator {
 
     // 1. Static Analysis (Tokenization)
     const tokens = Tokenizer.tokenizeSQL(input);
-    const riskKeywords = tokens.filter((t) =>
-      ["UNION", "DROP", "OR"].includes(t.value)
-    );
+    const riskKeywords = tokens.filter((t) => ['UNION', 'DROP', 'OR'].includes(t.value));
 
     // 2. Dynamic Analysis (Sandbox Execution)
     // We wrap the input in a standard "vulnerable" query
@@ -32,26 +30,24 @@ export class SQLInjectionSimulator extends BaseSimulator {
     const bypassed = results.length > 1;
 
     if (bypassed || riskKeywords.length > 0) {
-      let details = "";
+      let details = '';
       if (bypassed) {
         details += `[CRITICAL] Logic Bypass Detected! Query returned ${results.length} rows instead of 1.\n`;
       }
       if (riskKeywords.length > 0) {
         details += `[WARNING] Dangerous SQL Keywords detected: ${riskKeywords
           .map((t) => t.value)
-          .join(", ")}\n`;
+          .join(', ')}\n`;
       }
 
       return {
         type: this.type,
         riskLevel: RiskLevel.HIGH,
         input,
-        detectedPattern:
-          riskKeywords.length > 0 ? riskKeywords[0].value : "Logic Bypass",
-        exploitationPotential:
-          "Full database dump, authentication bypass, or data loss.",
+        detectedPattern: riskKeywords.length > 0 ? riskKeywords[0].value : 'Logic Bypass',
+        exploitationPotential: 'Full database dump, authentication bypass, or data loss.',
         preventionMeasure:
-          "Use Parameterized Queries (Prepared Statements) to separate code from data.",
+          'Use Parameterized Queries (Prepared Statements) to separate code from data.',
         explanation: `
             ${details}
             
@@ -66,7 +62,7 @@ export class SQLInjectionSimulator extends BaseSimulator {
 
     return this.createSafeResult(
       input,
-      "The input did not trigger any logic bypass or risky keyword detection in the sandbox."
+      'The input did not trigger any logic bypass or risky keyword detection in the sandbox.',
     );
   }
 }

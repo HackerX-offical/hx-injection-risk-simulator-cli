@@ -1,15 +1,15 @@
-import { BaseSimulator } from "./BaseSimulator";
-import { InjectionType, RiskLevel, SimulationResult } from "../core/types";
+import { BaseSimulator } from './BaseSimulator';
+import { InjectionType, RiskLevel, SimulationResult } from '../core/types';
 
 export class TemplateInjectionSimulator extends BaseSimulator {
   type = InjectionType.TEMPLATE;
 
   async analyze(input: string): Promise<SimulationResult> {
     const patterns = [
-      { regex: /\{\{.*\}\}/i, name: "Double Curly Braces ({{...}})" },
-      { regex: /\$\{.*\}/i, name: "Template Literal (${...})" },
-      { regex: /<%BaseSimulator.*%>/i, name: "ERB/EJS Tags (<%...%>)" },
-      { regex: /#{.*}/i, name: "Ruby Interpolation (#{...})" },
+      { regex: /\{\{.*\}\}/i, name: 'Double Curly Braces ({{...}})' },
+      { regex: /\$\{.*\}/i, name: 'Template Literal (${...})' },
+      { regex: /<%BaseSimulator.*%>/i, name: 'ERB/EJS Tags (<%...%>)' },
+      { regex: /#{.*}/i, name: 'Ruby Interpolation (#{...})' },
     ];
 
     for (const pattern of patterns) {
@@ -20,9 +20,9 @@ export class TemplateInjectionSimulator extends BaseSimulator {
           input,
           detectedPattern: pattern.name,
           exploitationPotential:
-            "Server-Side Template Injection (SSTI) can lead to RCE or sensitive data exposure.",
+            'Server-Side Template Injection (SSTI) can lead to RCE or sensitive data exposure.',
           preventionMeasure:
-            "Do not concatenate user input into templates. Pass data as context properties to the template engine.",
+            'Do not concatenate user input into templates. Pass data as context properties to the template engine.',
           explanation: `
             The input contains template syntax "${pattern.name}".
             
@@ -38,7 +38,7 @@ export class TemplateInjectionSimulator extends BaseSimulator {
 
     return this.createSafeResult(
       input,
-      "The input does not contain obvious template injection syntax. Ensure you treat this as data, not code, in your templates."
+      'The input does not contain obvious template injection syntax. Ensure you treat this as data, not code, in your templates.',
     );
   }
 }
