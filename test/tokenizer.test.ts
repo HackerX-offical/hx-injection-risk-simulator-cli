@@ -2,7 +2,7 @@ import { Tokenizer, TokenType } from '../src/utils/Tokenizer';
 
 describe('Tokenizer', () => {
   test('classifies SQL keywords and operators', () => {
-    const tokens = Tokenizer.tokenizeSQL("SELECT * FROM users WHERE id = 1");
+    const tokens = Tokenizer.tokenizeSQL('SELECT * FROM users WHERE id = 1');
     expect(tokens.some((t) => t.type === TokenType.KEYWORD && t.value === 'SELECT')).toBe(true);
     expect(tokens.some((t) => t.type === TokenType.OPERATOR && t.value === '=')).toBe(true);
   });

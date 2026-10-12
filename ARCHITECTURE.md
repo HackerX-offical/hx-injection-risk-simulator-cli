@@ -1,41 +1,40 @@
-# hx-injection-risk-simulator-cli architecture
+# hx-injection-risk-simulator-cli — architecture
 
-Educational injection-risk simulator for authorized security training. Engines analyze untrusted strings offline; sandboxes and reporters stay injectable so unit tests never need live targets.
+## Purpose
 
-## Layout
+Simulates risky patterns for education. Non-goals: automated exploitation of remote
+targets.
 
-```
-src/
-  cli/CLI.ts                 # Commander entry
-  core/types.ts, context.ts  # Shared result + mock DB types
-  engines/                   # SQL, command, template simulators + PayloadFuzzer
-  explainer/ExplainerEngine.ts
-  reporting/ReportGenerator.ts
-  sandbox/MockDatabase.ts, MockFileSystem.ts
-  scenarios/Scenarios.ts
-  utils/Tokenizer.ts, ConfigLoader.ts
-test/
-  *.test.ts                  # Jest unit tests (mocks only)
+## High-level flow
+
+```mermaid
+flowchart LR
+  CLI[CLI] --> Core[Core engine]
+  Core --> Modules[Domain modules]
+  Modules --> Reporters[Reporters]
 ```
 
-## Data flow
+## Module map
 
-1. CLI loads scenario config → picks `ISimulator` implementation.
-2. `analyze(input)` returns `SimulationResult` with risk, pattern, remediation text.
-3. `PayloadFuzzer` batches default/custom payloads through a simulator.
-4. `MockDatabase.executeQuery` naively models tautology/UNION for SQL demos.
-5. `ReportGenerator` writes JSON/Markdown artifacts for engagement notes.
+| Path           | Responsibility               |
+| -------------- | ---------------------------- |
+| `src/index.ts` | CLI entry                    |
+| `src/`         | Tokenizer and scenario logic |
+| `test/`        | Jest tests                   |
 
-## Develop
+## Extension
 
-```bash
-npm install
-npm run build
-npm test
-```
+1. Add a module under the appropriate `src/` folder.
+2. Register it in the orchestrator (if applicable).
+3. Add unit tests with mocks — no live network in unit tests.
+4. Run `npm test` and `npm run format:check`.
 
-## Deep bar
+## Testing strategy
 
-Targets HackerX `org-standards/verify-deep.sh`: ≥12 non-test `.ts` under `src/`, ≥6 `*.test.ts` / `*.spec.ts` files.
+- **Unit**: mocked I/O, pure parsers, reporters.
+- **Integration** (if present): live targets documented in README; optional in CI or
+  scheduled.
 
-See [SECURITY.md](./SECURITY.md) for authorized use.
+## Ethics & scope
+
+Authorized engagements only. See [SECURITY.md](./SECURITY.md).
