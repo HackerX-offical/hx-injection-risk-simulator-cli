@@ -33,5 +33,13 @@
     "cli-table3": "^0.6.5",
     "ora": "^9.0.0",
     "winston": "^3.19.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HackerX-official/hx-injection-risk-simulator-cli.git"
+  },
+  "homepage": "https://github.com/HackerX-official/hx-injection-risk-simulator-cli#readme",
+  "bugs": {
+    "url": "https://github.com/HackerX-official/hx-injection-risk-simulator-cli/issues"
   }
 }
