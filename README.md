@@ -16,7 +16,7 @@ production apps.
 ## Install
 
 ```bash
-git clone https://github.com/HackerX-offical/hx-injection-risk-simulator-cli.git
+git clone https://github.com/HackerX-official/hx-injection-risk-simulator-cli.git
 cd hx-injection-risk-simulator-cli
 npm install && npm run build
 ```
